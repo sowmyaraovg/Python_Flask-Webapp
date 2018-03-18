@@ -1,0 +1,199 @@
+
+{% extends "layout.html" %}
+{% import "helpers/forms.html" as forms %}
+
+{% block title %}Welcome to Content Mapper !{% endblock %}
+{% block content %}
+{{ super() }}
+<style>
+.container{
+  height:100%;
+}
+.content {
+    display: none;
+}
+
+.buttonclass{
+  height: 50px;
+  width: 100px;
+}
+#titlelabel
+{
+font-size:larger;
+}
+
+
+.button1{background-color: rgb(130, 190, 130);height: 50px;width: 100px;} 
+.button2 {background-color: rgb(129, 153, 161);height: 50px;width: 100px;} 
+.button3 {background-color:rgb(199, 108, 121);height: 50px; width: 100px;}
+</style>
+
+
+<div class='container' style='width:65%;max-height:100%;float:left;border:1px solid;overflow-y:scroll;border-color:maroon;padding:1%;background-color:azure'>  
+  <form action="/section" method="POST" id="content_form">
+    <fieldset>
+    <legend><strong>Schema Version -"2.0"</strong></legend>
+    <div style='width:100%' style='float:left'>
+      <div class="ms-TextField">
+        {{section_form.SectionTitle.label(class_="ms-Label",id='titlelabel')}}
+                    
+        {{section_form.SectionTitle(class_='ms-TextField-field',id='title',placeholder='Add a new Section Title')}}
+        <button class="ms-Button ms-Button--primary" type='submit' style='float:right;background-color:lightblue' >
+            <span class="ms-Button-label">Create</span> 
+        </button>
+
+      </div>    
+  </form>
+
+ 
+ <form action="/sectioncontent" method="POST">
+ 
+  {{sc_form.section.label(class_="ms-Label",id='titlelabel')}}
+                  
+  {{sc_form.section(class_='ms-TextField-field',id='title',placeholder='Add a new ScenarioName')}}
+
+   
+  
+
+  <div class="ms-TextField">
+      {{sc_form.ScenarioName.label(class="ms-Label",id='titlelabel')}}
+      {{sc_form.ScenarioName(class_='ms-TextField-field',id='title',placeholder='Add Description')}}
+      
+     
+      <button class="ms-Button ms-Button--primary" type='submit' style='float:right;background-color:lightblue' >
+          <span class="ms-Button-label">Create</span> 
+      </button>
+    </div>    
+
+    
+    {{sc_form.scenario.label(class_="ms-Label",id='titlelabel')}}
+                  
+    {{sc_form.scenario(class_='ms-TextField-field',id='title',placeholder='Add a new ScenarioName')}}
+      
+    
+  <div class="ms-TextField">
+  {{sc_form.Description.label(class="ms-Label",id='titlelabel')}}
+  {{sc_form.Description(class_='ms-TextField-field',id='title',placeholder='Add Description')}}
+  </div>
+
+  <label class="ms-Label" style='display:inline;font-size:Large'>Docs</label>
+      <input type="radio" name="group1" class="sim-maxi-btn trigger" data-rel="sim-maxi-desktop" />
+
+<label class="ms-Label" style='display:inline;font-size:large;padding-left:10%'>Gaps</label>
+      <input type="radio" name="group1" class="sim-mega-btn trigger" data-rel="sim-mega-desktop" />
+
+  <div class="billpay-internet-add-ons">
+     <div class="sim-maxi-desktop content">
+        <div class="ms-TextField">
+          {{doc_form.Name.label(class="ms-Label",id='titlelabel')}}
+          {{doc_form.Name(class_='ms-TextField-field',id='title',placeholder='Add Description')}}
+        </div>
+     
+       <div class="ms-TextField">
+          {{doc_form.Link.label(class="ms-Label",id='titlelabel')}}
+          {{doc_form.Link(class_='ms-TextField-field',id='title',placeholder='Add Description')}}
+      </div>
+     
+    </div>
+     <div class="sim-mega-desktop content"><tr>
+        <div class="ms-TextField">
+            {{gap_form.Description.label(class="ms-Label",id='titlelabel')}}
+            {{gap_form.Description(class_='ms-TextField-field',id='title',placeholder='Add Description')}}
+        </div>
+
+        <div class="ms-TextField">
+          {{gap_form.Url.label(class="ms-Label",id='titlelabel')}}
+          {{gap_form.Url(class_='ms-TextField-field',id='title',placeholder='Add Description')}}
+        </div>
+        </div>
+ </div>
+  
+      <div style='float:right'>
+       <button class="ms-Button ms-Button--primary" >
+          <span class="ms-Button-label">Preview</span> 
+      </button>
+
+      <button class="ms-Button ms-Button--primary" >
+          <span class="ms-Button-label">Refresh</span> 
+      </button>
+      
+      <button class="ms-Button ms-Button--primary" >
+            <span class="ms-Button-label">Submit</span> 
+      </button>
+     </div>
+     </fieldset>   
+    </form>    
+        
+</div>
+
+
+<div class='container' style='width:30%;max-height:100%;float:left;border:1px solid;overflow-y:scroll;border-color:maroon;padding:1%;background-color:azure'>  
+        <pre id="json" style='display:block;padding-top:6%;;max-width:100%;height:100%;white-space:pre-wrap;'></pre><br><br><br><br><br><br><br><br><br>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script type="text/javascript">
+   $(document).ready(function(){
+    $('.trigger').click(function() {
+    $('.content').hide();
+    $('.' + $(this).data('rel')).show();
+});
+   });
+ </script> 
+ <script>
+
+  var TextFieldElements = document.querySelectorAll(".ms-TextField");
+  for (var i = 0; i < TextFieldElements.length; i++) {
+    new fabric['TextField'](TextFieldElements[i]);
+  };
+</script> 
+<script>
+  var ButtonElements = document.querySelectorAll(".ms-Button");
+  for (var i = 0; i < ButtonElements.length; i++) {
+    new fabric['Button'](ButtonElements[i], function() {
+      // Insert Event Here
+
+  });
+ </script>
+ <script type="text/javascript">
+  var DropdownHTMLElements = document.querySelectorAll('.ms-Dropdown');
+  for (var i = 0; i < DropdownHTMLElements.length; ++i) {
+    var Dropdown = new fabric['Dropdown'](DropdownHTMLElements[i]);
+  }
+</script>
+
+
+<script type="text/javascript">
+var obj = {"SectionTitle": "ETL Data into Warehouse Format (Kimball)",
+"SectionContent": [
+  {
+    "ScenarioName": "Create warehouse tables",
+    "Description": "Create the tables to store the warehouse data.",
+    "Docs": [
+      {
+        "Name": "Overview of tables in SQL Data Warehouse",
+        "Link": "https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-overview"
+      }
+    ],
+    "Gaps": []
+  },
+  {
+    "ScenarioName": "Process raw data into warehouse with T-SQL",
+    "Description": "Use T-SQL to process data from the work tables into the warehouse tables.",
+    "Docs": [
+      {
+        "Name": "Design decisions and coding techniques for SQL Data Warehouse",
+        "Link": "https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-overview-develop#development-recommendations-and-coding-techniques"
+      }
+    ],
+    "Gaps": []
+  }
+]
+};
+
+ document.getElementById("json").innerHTML = JSON.stringify(obj, undefined, 2);
+
+
+  
+</script>
+{% endblock content %}

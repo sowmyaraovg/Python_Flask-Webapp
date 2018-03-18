@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %}{{ title }}{% endblock %}</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.2.0/css/fabric.min.css" />
+<link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.2.0/css/fabric.components.min.css" />
+<script src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.2.0/js/fabric.min.js"></script>
+
+<style>
+body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color: aliceblue;
+}
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    /* border: 1px solid #ccc;
+    background-color: #f1f1f1; */
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+</style>
+</head>
+<body>
+<header>
+        
+
+        <div class="tab"><button class="tablinks"><strong>Content Mapper</strong></button> 
+		<div class="tab"><button class="tablinks">IOT</button> 
+		<div class="tab"><button class="tablinks">Data</button> 
+		<div class="tab"><button class="tablinks">ML</button> 	
+		<div class="tab"><button class="tablinks">Linux</button> 
+		<div class="tab"><button class="tablinks">Windows</button> 
+		<div class="tab"><button class="tablinks">Serverless</button> 
+		
+</header>
+
+{% set messages = get_flashed_messages() %}
+{% if messages %}
+<section>
+	{% for message in messages %}
+	<p>{{ message }}</p>
+	{% endfor %}
+</section>
+{% endif %}
+<section>
+{% block content %}{% endblock %}
+</section>
+<footer>
+<strong><p><center>You are viewing the application Content Mapper Schema Version-"2.0"</center></p></footer></strong>
+</footer>
+</body>
+</html>

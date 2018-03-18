@@ -1,0 +1,99 @@
+
+{% extends "layout.html" %}
+{% import "helpers/forms.html" as forms %}
+
+{% block title %}Welcome to Content Mapper !{% endblock %}
+{% block content %}
+{{ super() }}
+<style>
+    .content {
+    display: none;
+}
+#larger {
+font-size: 60px;
+}
+
+
+</style>
+<div class='container' style='width:65%;max-height:100%;float:left;border:1px solid;overflow-y:scroll;border-color:maroon;padding:1%;background-color:azure'>  
+<form action="/section" method="POST">
+<fieldset>
+<legend><strong>Add a new SectionTitle</strong></legend>
+<div style='width:100%'>
+        
+{{ forms.render(section_form)}}
+
+<p><input type="Submit" value="Save Section"></p></div>
+</fieldset>
+</form>
+
+
+<form action="/sectioncontent" method="POST">
+<fieldset>
+<legend><strong>Section Content </strong></legend>
+{{ forms.render(sc_form) }}
+<label>Docs
+        <input type="radio" name="group1" class="sim-maxi-btn trigger" data-rel="sim-maxi-desktop" />
+</label>
+<label>Gaps
+        <input type="radio" name="group1" class="sim-mega-btn trigger" data-rel="sim-mega-desktop" />
+    </label>
+    center><p><input type="Submit" value="Submit" style='display:inline'>
+        <input type="button" value="Refresh" style='display:inline'>
+        <input type="button" value="Preview" style='display:inline'></p>  </center>
+    
+                  
+    </fieldset>   
+        </form>     
+    </div>
+    
+
+
+
+<div class='container' style='width:30%;max-height:100%;float:left;border:1px solid;overflow-y:scroll;border-color:maroon;padding:1%;background-color:azure'>  
+        <pre id="json" style='display:block;padding-top:6%;;max-width:100%;height:100%;white-space:pre-wrap;'></pre><br><br><br><br><br><br><br><br>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="local_xxx.js"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+    $('.trigger').click(function() {
+    $('.content').hide();
+    $('.' + $(this).data('rel')).show();
+});
+   });
+</script>
+<script type="text/javascript">
+var obj = {"SectionTitle": "ETL Data into Warehouse Format (Kimball)",
+"SectionContent": [
+  {
+    "ScenarioName": "Create warehouse tables",
+    "Description": "Create the tables to store the warehouse data.",
+    "Docs": [
+      {
+        "Name": "Overview of tables in SQL Data Warehouse",
+        "Link": "https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-overview"
+      }
+    ],
+    "Gaps": []
+  },
+  {
+    "ScenarioName": "Process raw data into warehouse with T-SQL",
+    "Description": "Use T-SQL to process data from the work tables into the warehouse tables.",
+    "Docs": [
+      {
+        "Name": "Design decisions and coding techniques for SQL Data Warehouse",
+        "Link": "https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-overview-develop#development-recommendations-and-coding-techniques"
+      }
+    ],
+    "Gaps": []
+  }
+]
+};
+
+ document.getElementById("json").innerHTML = JSON.stringify(obj, undefined, 2);
+
+
+
+</script>
+{% endblock content %}
